@@ -1,10 +1,10 @@
 project_name: devops_test
 
 postgres_container_name: postgres
-postgres_image: postgres: 16
+postgres_image: "postgres:16"
 postgres_db: app_db
 postgres_user: app_user
-postgress_port: 5432
+postgres_port: 5432
 
 docker_network_name: app_network
 postgres_volume_name: postgres_data

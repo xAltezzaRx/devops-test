@@ -1,0 +1,23 @@
+- name: Create docker network
+  community.docker.docker_network:
+    name: "{{ docker_network_name }}"
+
+- name: Create postgres volume
+  community.docker.docker_volume:
+    name: "{{ postgres_volume_name }}"
+
+- name: Run postgres container
+  community.docker.docker_container:
+    name: "{{ postgres_container_name }}"
+    image: "{{ postgres_image}}"
+    restart_policy: always
+    env:
+      POSTGRES_DB: "{{ postgres_db }}"
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+    volumes:
+      - "{{ postgres_volume_name }}:/var/lib/postgresql/data"
+    networks:
+      - name: "{{ docker_network_name }}"
+    ports:
+      - "{{ postgres_port }}:5432"
