@@ -1,0 +1,18 @@
+- name: Build nginx image
+  community.docker.docker_image:
+    name: "{{ nginx_image_name }}"
+    source: build
+    build:
+      path: "{{ playbook_dir }}/../../app/nginx"
+      nocache: true
+
+- name: Run nginx container
+  community.docker.docker_container:
+    name: "{{ nginx_container_name }}"
+    image: "{{ nginx_image_name }}"
+    restart_policy: always
+    state: started
+    networks:
+      - name: "{{ docker_network_name }}"
+    ports:
+      - "{{ nginx_port }}:80"
