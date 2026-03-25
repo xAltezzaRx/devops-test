@@ -9,7 +9,7 @@
 - name: Run postgres container
   community.docker.docker_container:
     name: "{{ postgres_container_name }}"
-    image: "{{ postgres_image}}"
+    image: "{{ postgres_image }}"
     restart_policy: always
     env:
       POSTGRES_DB: "{{ postgres_db }}"

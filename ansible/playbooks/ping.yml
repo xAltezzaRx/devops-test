@@ -1,6 +1,7 @@
-- hosts: web
-  become: yes
+- name: Ping test playbook
+  hosts: web
+  become: true
 
   tasks:
-    - name: ping test
-      ping:
+    - name: Ping test
+      ansible.builtin.ping:

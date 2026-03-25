@@ -1,18 +1,19 @@
-- hosts: web
-  become: yes
+- name: Install Docker playbook
+  hosts: web
+  become: true
 
   tasks:
     - name: Update apt cache
-      apt:
-        update_cache: yes
+      ansible.builtin.apt:
+        update_cache: true
 
     - name: Install docker package
-      apt:
+      ansible.builtin.apt:
         name: docker.io
         state: present
 
     - name: Enable docker service
-      systemd:
+      ansible.builtin.systemd:
         name: docker
-        enabled: yes
+        enabled: true
         state: started
