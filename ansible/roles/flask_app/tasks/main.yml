@@ -1,0 +1,24 @@
+- name: Build flask image
+  community.docker.docker_image:
+    name: "{{ flask_image_name }}"
+    source: build
+    build:
+      path: "{{ playbook_dir }}/../../app/flask_app"
+      nocache: true
+
+- name: Run flask container
+  community.docker.docker_container:
+    name: "{{ flask_container_name }}"
+    image: "{{ flask_image_name }}"
+    restart_policy: always
+    state: started
+    env:
+      POSTGRES_HOST: "{{ postgres_container_name }}"
+      POSTGRES_PORT: "{{ postgres_port | string }}"
+      POSTGRES_DB: "{{ postgres_db }}"
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+    networks:
+      - name: "{{ docker_network_name }}"
+    ports:
+      - "{{ flask_port }}:5000"

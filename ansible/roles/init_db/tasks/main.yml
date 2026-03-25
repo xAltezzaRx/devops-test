@@ -1,0 +1,23 @@
+- name: Build init_db image
+  community.docker.docker_image:
+    name: "{{ init_db_image_name }}"
+    source: build
+    build:
+      path: "{{ playbook_dir }}/../../app/init_db"
+
+- name: Run init_db container
+  community.docker.docker_container:
+    name: "{{ init_db_container_name }}"
+    image: "{{ init_db_image_name }}"
+    state: started
+    restart_policy: "no"
+    cleanup: true
+    detach: false
+    env:
+      POSTGRES_HOST: "{{ postgres_container_name }}"
+      POSTGRES_PORT: "{{ postgres_port | string }}"
+      POSTGRES_DB: "{{ postgres_db }}"
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+    networks:
+      - name: "{{ docker_network_name }}"

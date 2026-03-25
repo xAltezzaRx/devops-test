@@ -8,3 +8,10 @@ postgres_port: 5432
 
 docker_network_name: app_network
 postgres_volume_name: postgres_data
+
+init_db_image_name: init-db:latest
+init_db_container_name: init-db
+
+flask_image_name: "flask-app:latest"
+flask_container_name: flask-app
+flask_port: 5000

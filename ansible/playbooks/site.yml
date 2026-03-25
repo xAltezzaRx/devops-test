@@ -3,3 +3,5 @@
   roles:
     - docker
     - postgres
+    - init_db
+    - flask_app
