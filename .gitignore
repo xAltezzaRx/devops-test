@@ -1,0 +1,6 @@
+*.retry
+__pycache__/
+*.рус
+.venv/
+.env
+vault_pass.txt
